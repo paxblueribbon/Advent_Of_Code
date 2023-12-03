@@ -2,14 +2,20 @@ package me.paxana.adventofcode
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.TextView
 import com.orhanobut.logger.AndroidLogAdapter
 import com.orhanobut.logger.Logger
 
 class Day3Activity : AppCompatActivity() {
+
+  lateinit var answerTV: TextView
+
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_day3)
     Logger.addLogAdapter(AndroidLogAdapter())
+
+    answerTV = findViewById(R.id.answerDay3TV)
     val possibleResults = mutableListOf<MutableMap<String, MutableList<Int>>>()
     var numResult = 0
     val idList = mutableListOf<Int>()
@@ -48,6 +54,8 @@ class Day3Activity : AppCompatActivity() {
 
       }
       Logger.d("ID List sum: ${idList.sum()}")
+      answerTV.text = idList.sum().toString()
+
     }
   }
   private fun isPossible(results: MutableMap<String, MutableList<Int>>): Boolean {

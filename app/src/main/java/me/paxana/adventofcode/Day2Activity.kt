@@ -2,13 +2,19 @@ package me.paxana.adventofcode
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.TextView
 import com.orhanobut.logger.AndroidLogAdapter
 import com.orhanobut.logger.Logger
 
 class Day2Activity : AppCompatActivity() {
+
+  lateinit var answerTV: TextView
+
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_day2)
+
+    answerTV = findViewById(R.id.day2answerTV)
 
     Logger.addLogAdapter(AndroidLogAdapter())
 
@@ -41,6 +47,7 @@ class Day2Activity : AppCompatActivity() {
       }
 
       Logger.d("Sum = ${list.sum()}")
+      answerTV.text = list.sum().toString()
     }
   }
 

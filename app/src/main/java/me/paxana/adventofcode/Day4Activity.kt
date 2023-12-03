@@ -2,14 +2,20 @@ package me.paxana.adventofcode
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.TextView
 import com.orhanobut.logger.AndroidLogAdapter
 import com.orhanobut.logger.Logger
 
 class Day4Activity : AppCompatActivity() {
+
+  lateinit var answerTV: TextView
+
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_day3)
     Logger.addLogAdapter(AndroidLogAdapter())
+
+    answerTV = findViewById(R.id.answerDay3TV)
     val powerList = mutableListOf<Int>()
 
     assets.open("Day2Input.txt").bufferedReader().useLines { lines ->
@@ -39,6 +45,7 @@ class Day4Activity : AppCompatActivity() {
         powerList.add(maxesPower)
       }
       Logger.d("Power List sum: ${powerList.sum()}")
+      answerTV.text = powerList.sum().toString()
     }
   }
   private fun maxes(results: MutableMap<String, MutableList<Int>>): Map<String, Int> {
