@@ -13,11 +13,10 @@ class Day2Activity : AppCompatActivity() {
     Logger.addLogAdapter(AndroidLogAdapter())
 
     val list = mutableListOf<Int>()
-    val listOfDigits = mutableListOf<Int>(0, 1, 2, 3, 4, 5, 6, 7, 8, 9)
+    val listOfDigits = mutableListOf(0, 1, 2, 3, 4, 5, 6, 7, 8, 9)
 
     assets.open("Day1Input.txt").bufferedReader().useLines { lines ->
       lines.forEach { lineStr ->
-        val originalLineStr = lineStr
         var editableLineStr = lineStr
 
         // Issue where some text numbers contain characters from other text numbers
@@ -36,7 +35,7 @@ class Day2Activity : AppCompatActivity() {
         val together = "$first$last"
         val togetherInt = together.toInt()
 
-        Logger.d("Lines: $originalLineStr, Replaced line str: $replaced Digits: $justTheDigits, First: $first, Last: $last, Together: $together, Together Int: $togetherInt")
+        Logger.d("Lines: $lineStr, Replaced line str: $replaced Digits: $justTheDigits, First: $first, Last: $last, Together: $together, Together Int: $togetherInt")
 
         list.add(togetherInt)
       }
@@ -71,7 +70,7 @@ class Day2Activity : AppCompatActivity() {
     return editableLocalText
   }
 
-  fun doesContainTextDigit(line: String): Boolean {
+  private fun doesContainTextDigit(line: String): Boolean {
     return line.contains("one") || line.contains("two") || line.contains("three") || line.contains("four") || line.contains("five") || line.contains("six") || line.contains("seven") || line.contains("eight") || line.contains("nine") || line.contains("zero")
   }
 }

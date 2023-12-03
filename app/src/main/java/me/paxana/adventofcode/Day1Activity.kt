@@ -2,7 +2,6 @@ package me.paxana.adventofcode
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import com.orhanobut.logger.AndroidLogAdapter
 import com.orhanobut.logger.Logger
 
@@ -13,7 +12,7 @@ class Day1Activity : AppCompatActivity() {
 
     Logger.addLogAdapter(AndroidLogAdapter())
 
-    var list = mutableListOf<Int>()
+    val list = mutableListOf<Int>()
 
     assets.open("Day1Input.txt").bufferedReader().useLines { lines ->
       lines.forEach { lineStr ->
