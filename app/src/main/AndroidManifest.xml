@@ -13,6 +13,13 @@
         android:theme="@style/Theme.AdventOfCode"
         tools:targetApi="31">
         <activity
+            android:name=".Day2Activity"
+            android:exported="true">
+        <intent-filter>
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+        </activity>
+        <activity
             android:name=".Day1Activity"
             android:exported="true">
             <intent-filter>
@@ -24,6 +31,7 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
