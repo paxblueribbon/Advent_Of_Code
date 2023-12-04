@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity() {
 
     val spinner = findViewById<Spinner>(R.id.dayChoiceSpinner)
 
-    val currentDays = arrayOf("Select Day", "Day 1", "Day 2", "Day 3", "Day 4", "Day 5", "Day 6")
+    val currentDays = arrayOf("Select Day", "Day 1", "Day 2", "Day 3", "Day 4", "Day 5", "Day 6", "Day 7")
 
     ArrayAdapter(this, android.R.layout.simple_spinner_item, currentDays).also {
       adapter ->
@@ -57,6 +57,9 @@ class MainActivity : AppCompatActivity() {
           }
           "Day 6" -> {
             startActivity(Intent(this@MainActivity, Day6Activity::class.java))
+          }
+          "Day 7" -> {
+            startActivity(Intent(this@MainActivity, Day7Activity::class.java))
           }
         }
       }
