@@ -2,22 +2,24 @@ package me.paxana.adventofcode
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.TextView
 import androidx.core.text.isDigitsOnly
 import com.orhanobut.logger.AndroidLogAdapter
 import com.orhanobut.logger.Logger
 
 class Day6Activity : AppCompatActivity() {
   private val symbolCoordinates = mutableListOf<Pair<Int, Int>>()
+  lateinit var answerTV: TextView
 
   override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_day6)
+        Logger.addLogAdapter(AndroidLogAdapter())
+        answerTV = findViewById(R.id.day6AnswerTV)
 
-    Logger.addLogAdapter(AndroidLogAdapter())
+        val matrix = turnTextFileIntoMatrix()
 
-    val matrix = turnTextFileIntoMatrix()
-
-    val fullNumberCoordinateList = mutableListOf<Pair<Int, Pair<Int, Int>>>()
+        val fullNumberCoordinateList = mutableListOf<Pair<Int, Pair<Int, Int>>>()
 
     symbolCoordinates.forEach {
       val neighborCoordinates = mutableListOf<Pair<Int, Pair<Int, Int>>>()
@@ -33,14 +35,12 @@ class Day6Activity : AppCompatActivity() {
       }
 
     }
-    Logger.d(fullNumberCoordinateList)
     val theActualNumbers = fullNumberCoordinateList.chunked(2).map{ coordinates ->
       Pair(getSubstring(matrix, coordinates[0]), getSubstring(matrix, coordinates[1]))
     }
-    Logger.d(theActualNumbers)
 
     val multipliedNumbers = theActualNumbers.map { it.first * it.second }
-    Logger.d(multipliedNumbers.sum())
+    answerTV.text = multipliedNumbers.sum().toString()
     }
 
   private fun findStartAndEndOfNumber(matrix: MutableList<MutableList<String>>, i: Int, j: Int): Pair<Int, Int> {

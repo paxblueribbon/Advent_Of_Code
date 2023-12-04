@@ -2,6 +2,7 @@ package me.paxana.adventofcode
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.TextView
 import androidx.core.text.isDigitsOnly
 import com.orhanobut.logger.AndroidLogAdapter
 import com.orhanobut.logger.Logger
@@ -9,11 +10,14 @@ import com.orhanobut.logger.Logger
 class Day5Activity : AppCompatActivity() {
 
   private val symbolCoordinates = mutableListOf<Pair<Int, Int>>()
+  lateinit var answerTV: TextView
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_day5)
     Logger.addLogAdapter(AndroidLogAdapter())
+    //TODO: Standardize these answer IDs
+    answerTV = findViewById(R.id.answerDay5TV)
 
     val matrix = turnTextFileIntoMatrix()
     val fullNumberCoordinatesList = mutableListOf<Pair<Int, Pair<Int, Int>>>()
@@ -39,6 +43,9 @@ class Day5Activity : AppCompatActivity() {
       }
     Logger.d("Accepted numbers: $acceptedNumbers")
     Logger.d("Sum of accepted numbers: ${acceptedNumbers.sum()}")
+
+    answerTV.text = acceptedNumbers.sum().toString()
+
 
   }
 
