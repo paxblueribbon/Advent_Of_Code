@@ -7,15 +7,22 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
+import com.airbnb.lottie.LottieAnimationView
 import com.orhanobut.logger.AndroidLogAdapter
 import com.orhanobut.logger.Logger
 
 class MainActivity : AppCompatActivity() {
+
+  private lateinit var snowView: LottieAnimationView
+
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_main)
-
     Logger.addLogAdapter(AndroidLogAdapter())
+
+    snowView = findViewById(R.id.snowView)
+
+    snowView.playAnimation()
 
     val spinner = findViewById<Spinner>(R.id.dayChoiceSpinner)
 

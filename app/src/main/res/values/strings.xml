@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Advent Of Code</string>
+    <string name="advent_of_code">Advent Of Code</string>
+    <string name="_2023">2023</string>
 </resources>
