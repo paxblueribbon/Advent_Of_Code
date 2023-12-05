@@ -1,17 +1,18 @@
-package me.paxana.adventofcode
+package me.paxana.adventofcode.day1
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.TextView
 import com.orhanobut.logger.AndroidLogAdapter
 import com.orhanobut.logger.Logger
+import me.paxana.adventofcode.R
 
-class Day1Activity : AppCompatActivity() {
+class Day1PartAActivity : AppCompatActivity() {
   lateinit var answerTV: TextView
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    setContentView(R.layout.activity_day_1)
+    setContentView(R.layout.activity_day1a)
 
     answerTV = findViewById(R.id.day1answerTV)
 

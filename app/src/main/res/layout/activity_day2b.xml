@@ -4,13 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Day7Activity">
+    android:background="@drawable/cyberpunktreebg"
+    tools:context=".day2.Day2PartBActivity">
 
     <TextView
-        android:id="@+id/answerDay7"
+        android:id="@+id/day4answer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="@style/AnswerTextView"
+        android:text=""
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

@@ -1,4 +1,4 @@
-package me.paxana.adventofcode
+package me.paxana.adventofcode.day3
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -6,15 +6,16 @@ import android.widget.TextView
 import androidx.core.text.isDigitsOnly
 import com.orhanobut.logger.AndroidLogAdapter
 import com.orhanobut.logger.Logger
+import me.paxana.adventofcode.R
 
-class Day5Activity : AppCompatActivity() {
+class Day3PartAActivity : AppCompatActivity() {
 
   private val symbolCoordinates = mutableListOf<Pair<Int, Int>>()
   lateinit var answerTV: TextView
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    setContentView(R.layout.activity_day5)
+    setContentView(R.layout.activity_day3a)
     Logger.addLogAdapter(AndroidLogAdapter())
     //TODO: Standardize these answer IDs
     answerTV = findViewById(R.id.answerDay5TV)

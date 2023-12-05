@@ -10,6 +10,13 @@ import android.widget.Spinner
 import com.airbnb.lottie.LottieAnimationView
 import com.orhanobut.logger.AndroidLogAdapter
 import com.orhanobut.logger.Logger
+import me.paxana.adventofcode.day1.Day1PartAActivity
+import me.paxana.adventofcode.day1.Day1PartBActivity
+import me.paxana.adventofcode.day2.Day2PartAActivity
+import me.paxana.adventofcode.day2.Day2PartBActivity
+import me.paxana.adventofcode.day3.Day3PartAActivity
+import me.paxana.adventofcode.day3.Day3PartBActivity
+import me.paxana.adventofcode.day4.Day4PartAActivity
 
 class MainActivity : AppCompatActivity() {
 
@@ -26,7 +33,7 @@ class MainActivity : AppCompatActivity() {
 
     val spinner = findViewById<Spinner>(R.id.dayChoiceSpinner)
 
-    val currentDays = arrayOf("Select Day", "Day 1", "Day 2", "Day 3", "Day 4", "Day 5", "Day 6", "Day 7")
+    val currentDays = arrayOf("Select Day", "Day 1A", "Day 1B", "Day 2A", "Day 2B", "Day 3A", "Day 3B", "Day 4A")
 
     ArrayAdapter(this, android.R.layout.simple_spinner_item, currentDays).also {
       adapter ->
@@ -40,26 +47,26 @@ class MainActivity : AppCompatActivity() {
           "Select Day" -> {
             Logger.d("Select Day selected")
           }
-          "Day 1" -> {
-            startActivity(Intent(this@MainActivity, Day1Activity::class.java))
+          "Day 1A" -> {
+            startActivity(Intent(this@MainActivity, Day1PartAActivity::class.java))
           }
-          "Day 2" -> {
-            startActivity(Intent(this@MainActivity, Day2Activity::class.java))
+          "Day 1B" -> {
+            startActivity(Intent(this@MainActivity, Day1PartBActivity::class.java))
           }
-          "Day 3" -> {
-            startActivity(Intent(this@MainActivity, Day3Activity::class.java))
+          "Day 2A" -> {
+            startActivity(Intent(this@MainActivity, Day2PartAActivity::class.java))
           }
-          "Day 4" -> {
-            startActivity(Intent(this@MainActivity, Day4Activity::class.java))
+          "Day 2B" -> {
+            startActivity(Intent(this@MainActivity, Day2PartBActivity::class.java))
           }
-          "Day 5" -> {
-            startActivity(Intent(this@MainActivity, Day5Activity::class.java))
+          "Day 3A" -> {
+            startActivity(Intent(this@MainActivity, Day3PartAActivity::class.java))
           }
-          "Day 6" -> {
-            startActivity(Intent(this@MainActivity, Day6Activity::class.java))
+          "Day 3B" -> {
+            startActivity(Intent(this@MainActivity, Day3PartBActivity::class.java))
           }
-          "Day 7" -> {
-            startActivity(Intent(this@MainActivity, Day7Activity::class.java))
+          "Day 4A" -> {
+            startActivity(Intent(this@MainActivity, Day4PartAActivity::class.java))
           }
         }
       }

@@ -1,18 +1,19 @@
-package me.paxana.adventofcode
+package me.paxana.adventofcode.day4
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.TextView
 import com.orhanobut.logger.AndroidLogAdapter
 import com.orhanobut.logger.Logger
+import me.paxana.adventofcode.R
 
-class Day8Activity : AppCompatActivity() {
+class Day4PartBActivity : AppCompatActivity() {
 
   private lateinit var answer: TextView
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    setContentView(R.layout.activity_day8)
+    setContentView(R.layout.activity_day4b)
     Logger.addLogAdapter(AndroidLogAdapter())
     answer = findViewById(R.id.day8Answer)
     val scratchCardList = mutableListOf<ScratchCard>()
