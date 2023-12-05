@@ -1,15 +1,28 @@
 package me.paxana.adventofcode.day1
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import com.orhanobut.logger.AndroidLogAdapter
 import com.orhanobut.logger.Logger
 import me.paxana.adventofcode.R
 
 class Day1PartBActivity : AppCompatActivity() {
 
-  lateinit var answerTV: TextView
+  private lateinit var answerTV: TextView
+
+  private val mapOfDigits = mutableMapOf(
+    1 to "one",
+    2 to "two",
+    3 to "three",
+    4 to "four",
+    5 to "five",
+    6 to "six",
+    7 to "seven",
+    8 to "eight",
+    9 to "nine",
+    0 to "zero"
+  )
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -20,7 +33,7 @@ class Day1PartBActivity : AppCompatActivity() {
     Logger.addLogAdapter(AndroidLogAdapter())
 
     val list = mutableListOf<Int>()
-    val listOfDigits = mutableListOf(0, 1, 2, 3, 4, 5, 6, 7, 8, 9)
+
 
     assets.open("Day1Input.txt").bufferedReader().useLines { lines ->
       lines.forEach { lineStr ->
@@ -30,24 +43,16 @@ class Day1PartBActivity : AppCompatActivity() {
         // Rather than replace text numbers, I'm inserting the digit one character into the text
 
         while (doesContainTextDigit(editableLineStr)) {
-          for (digit in listOfDigits) {
+          for (digit in mapOfDigits.keys) {
             editableLineStr = interruptTextDigits(editableLineStr, digit)
           }
         }
 
-        val replaced = editableLineStr
         val justTheDigits = editableLineStr.filter { lineChar -> lineChar.isDigit() }
-        val first = justTheDigits.first()
-        val last = justTheDigits.last()
-        val together = "$first$last"
-        val togetherInt = together.toInt()
+        val together = "${justTheDigits.first()}${justTheDigits.last()}".toInt()
 
-        Logger.d("Lines: $lineStr, Replaced line str: $replaced Digits: $justTheDigits, First: $first, Last: $last, Together: $together, Together Int: $togetherInt")
-
-        list.add(togetherInt)
+        list.add(together)
       }
-
-      Logger.d("Sum = ${list.sum()}")
       answerTV.text = list.sum().toString()
     }
   }
@@ -55,21 +60,7 @@ class Day1PartBActivity : AppCompatActivity() {
   private fun interruptTextDigits(editableText: String, searchedForDigit: Int): String {
     var editableLocalText = editableText
 
-    val textVersion = (when (searchedForDigit) {
-      1 -> "one"
-      2 -> "two"
-      3 -> "three"
-      4 -> "four"
-      5 -> "five"
-      6 -> "six"
-      7 -> "seven"
-      8 -> "eight"
-      9 -> "nine"
-      0 -> "zero"
-      else -> "zero"
-    })
-
-    val indexOfDigit = editableText.indexOf(textVersion)
+    val indexOfDigit = editableText.indexOf(mapOfDigits[searchedForDigit] ?: "")
     if (indexOfDigit != -1) {
       val sb = StringBuilder(editableText)
       sb.insert(indexOfDigit + 1, searchedForDigit)
@@ -79,6 +70,6 @@ class Day1PartBActivity : AppCompatActivity() {
   }
 
   private fun doesContainTextDigit(line: String): Boolean {
-    return line.contains("one") || line.contains("two") || line.contains("three") || line.contains("four") || line.contains("five") || line.contains("six") || line.contains("seven") || line.contains("eight") || line.contains("nine") || line.contains("zero")
+    return mapOfDigits.values.any { line.contains(it) }
   }
 }
