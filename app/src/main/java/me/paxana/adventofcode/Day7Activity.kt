@@ -8,7 +8,7 @@ import com.orhanobut.logger.Logger
 import kotlin.math.pow
 
 class Day7Activity : AppCompatActivity() {
-  lateinit var answer: TextView
+  private lateinit var answer: TextView
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -23,8 +23,8 @@ class Day7Activity : AppCompatActivity() {
     assets.open("Day4Input.txt").bufferedReader().useLines { lines ->
       lines.forEach { line ->
         val noTitle = line.split(":")[1]
-        val twoStrings = noTitle.split("|").map {
-          it.replace("  ", " ").split(" ").map {
+        val twoStrings = noTitle.split("|").map { list ->
+          list.replace("  ", " ").split(" ").map {
             it.trim() }.drop(1)
         }
         Logger.d("Two strings: $twoStrings")
@@ -39,21 +39,17 @@ class Day7Activity : AppCompatActivity() {
             count++
           }
         }
-        Logger.d("Original list: $originalSecondList, ts2: $ts2")
         points.add(originalSecondList.size - ts2.size)
       }
       Logger.d("Points: $points")
       Logger.d("Points sum: ${points.sum()}")
       //TODO: Remove zeroes before forEaching
-
       points.forEach {
         if (it > 1)  { bigPoints.add(2.0.pow(it - 1).toInt())}
         else { bigPoints.add(it) }
       }
-
-      Logger.d("Points Later: $bigPoints")
-      Logger.d("Total: ${bigPoints.sum()}")
     }
+    answer.text = bigPoints.sum().toString()
 
       }
       }
