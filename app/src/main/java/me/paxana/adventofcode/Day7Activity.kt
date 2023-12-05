@@ -41,10 +41,6 @@ class Day7Activity : AppCompatActivity() {
         }
         Logger.d("Original list: $originalSecondList, ts2: $ts2")
         points.add(originalSecondList.size - ts2.size)
-
-
-//        Logger.d("No more matches: $ts || $ts2")
-
       }
       Logger.d("Points: $points")
       Logger.d("Points sum: ${points.sum()}")
