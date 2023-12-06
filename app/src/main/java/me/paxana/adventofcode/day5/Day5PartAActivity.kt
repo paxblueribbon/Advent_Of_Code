@@ -9,7 +9,7 @@ import me.paxana.adventofcode.R
 import me.paxana.adventofcode.toList
 
 class Day5PartAActivity : AppCompatActivity() {
-  lateinit var seeds: Pair<String, List<Int>>
+  lateinit var seeds: Pair<String, List<Long>>
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_day5_part_aactivity)
@@ -18,20 +18,18 @@ class Day5PartAActivity : AppCompatActivity() {
     val keys = mutableListOf<String>()
     val values = mutableListOf<MutableList<String>>()
     val mappy = mutableMapOf<String, MutableList<String>>()
-    var rangeMap = mutableMapOf<String, Pair<IntRange, IntRange>>()
-    val validDestinations = mutableListOf<Int>()
 
-    val seedsToLocations = mutableMapOf<Int, Int>()
+    val seedsToLocations = mutableMapOf<Long, Long>()
 
     var lineCount = 0
     var latestKey = ""
 
-    assets.open("Day5TestInput.txt").bufferedReader().useLines { lines ->
+    assets.open("Day5Input.txt").bufferedReader().useLines { lines ->
       lines.forEach { lineStr ->
         if (lineStr.isNotEmpty()) {
           if (lineStr.contains("seeds:")) {
             val split = lineStr.split(":")
-            seeds = Pair(split[0], split[1].split(" ").drop(1).map { it.toInt() })
+            seeds = Pair(split[0], split[1].split(" ").drop(1).map { it.toLong() })
           } else if (lineStr.contains("map:")) {
             latestKey = lineStr.split(":")[0]
             mappy[latestKey] = mutableListOf()
@@ -41,7 +39,7 @@ class Day5PartAActivity : AppCompatActivity() {
         }
 
       }
-      val result = mutableListOf<Pair<IntRange, IntRange>>()
+      val result = mutableListOf<Pair<LongRange, LongRange>>()
 //TODO better variable names
 
       val nextMappy = mappy.map {
@@ -58,7 +56,7 @@ class Day5PartAActivity : AppCompatActivity() {
       Logger.d("nextMappy: $nextMappy")
 
       mappy["seed-to-soil map"]?.forEach {
-        var splitToNumerals = it.split(" ").map { it.toInt() }
+        var splitToNumerals = it.split(" ").map { it.toLong() }
         result.add(convertToRanges(splitToNumerals[2], Pair(splitToNumerals[0], splitToNumerals[1])))
       }
 
@@ -69,9 +67,9 @@ class Day5PartAActivity : AppCompatActivity() {
       }
 
       //TODO make this recursive
-      val resultsList = mutableListOf<Pair<Int, Pair<String, Int>>>()
+      val resultsList = mutableListOf<Pair<Long, Pair<String, Long>>>()
 
-      val lastMap = mutableMapOf<Int, Pair<String, Int>>()
+      val lastMap = mutableMapOf<Long, Pair<String, Long>>()
 
       var priorResults = seeds.second
 
@@ -84,7 +82,6 @@ class Day5PartAActivity : AppCompatActivity() {
       seeds.second.forEach { seed ->
         nextMappy.forEach{
           findSeedLocation(it.key, seed, it.value).let { pair ->
-//            seedsToLocations[seed] = pair.second
             resultsList.add(pair)
             val key = pair.second.first
             val value = pair.second.second
@@ -110,21 +107,21 @@ class Day5PartAActivity : AppCompatActivity() {
     Logger.d(mappy)
   }
 
-  fun splitToNumerals(it: String): List<Int> {
-    return it.split(" ").map { it.toInt() }
+  fun splitToNumerals(it: String): List<Long> {
+    return it.split(" ").map { it.toLong() }
   }
 
-  fun convertToRanges(rangeModifier: Int, rangeStarts: Pair<Int, Int>): Pair<IntRange, IntRange> {
-    val ir1 = IntRange(rangeStarts.first, rangeStarts.first + rangeModifier - 1)
-    val ir2 = IntRange(rangeStarts.second, rangeStarts.second + rangeModifier - 1)
+  fun convertToRanges(rangeModifier: Long, rangeStarts: Pair<Long, Long>): Pair<LongRange, LongRange> {
+    val ir1 = LongRange(rangeStarts.first, rangeStarts.first + rangeModifier - 1)
+    val ir2 = LongRange(rangeStarts.second, rangeStarts.second + rangeModifier - 1)
     return Pair(ir1, ir2)
   }
 
   fun findSeedLocation(
     key: String,
-    seed: Int,
-    ranges: List<Pair<IntRange, IntRange>>
-  ): Pair<Int, Pair<String, Int>> {
+    seed: Long,
+    ranges: List<Pair<LongRange, LongRange>>
+  ): Pair<Long, Pair<String, Long>> {
     var nextLocation = seed
 
     ranges.forEach {
