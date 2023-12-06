@@ -13,6 +13,13 @@
         android:theme="@style/Theme.AdventOfCode"
         tools:targetApi="31">
         <activity
+            android:name=".day5.Day5PartAActivity"
+            android:exported="true">
+        <intent-filter>
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+        </activity>
+        <activity
             android:name=".day4.Day4PartBActivity"
             android:exported="true">
             <intent-filter>
