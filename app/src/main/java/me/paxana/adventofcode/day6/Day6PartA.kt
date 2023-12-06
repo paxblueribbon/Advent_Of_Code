@@ -2,13 +2,14 @@ package me.paxana.adventofcode.day6
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import com.orhanobut.logger.Logger
 import me.paxana.adventofcode.R
 
 class Day6PartA : AppCompatActivity() {
 
-  var times = mutableListOf<Int>()
-  var distances = mutableListOf<Int>()
+  private var times = listOf<Long>()
+  private var distances = listOf<Long>()
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -19,39 +20,81 @@ class Day6PartA : AppCompatActivity() {
       lines.forEach { lineStr ->
         if (lineStr.isNotEmpty()) {
           if (lineStr.contains("Time:")) {
-            times = stringToListOfInts(lineStr)
+            times = stringToListOfLongs(lineStr)
             Logger.d("times: $times")
           } else if (lineStr.contains("Distance:")) {
 
-            distances = stringToListOfInts(lineStr)
+            distances = stringToListOfLongs(lineStr)
             Logger.d("distances: $distances")
           }
         }
       }
     }
 
-    val timeDistanceMap = times.zip(distances).toMap()
-    timeDistanceMap.forEach {
-      val range = findRange(it.key, it.value)
-      Logger.d("range: $range")
-    }
-    var rangeList: List<Int> = timeDistanceMap.map { findRange(it.key, it.value).toList().size }
-    Logger.d("rangeList: $rangeList")
+    Logger.d("partAAnswer: ${partAAnswer(times.toList(), distances.toList())}")
 
-    Logger.d(rangeList.reduce { acc, i -> acc * i  })
+
+    val longTime = times.joinTo(StringBuilder(), separator = "").toString().toLong()
+    val longDistance = distances.joinTo(StringBuilder(), separator = "").toString().toLong()
+
+    Logger.d("partBAnswer: ${partBAnswer(longTime, longDistance)}")
   }
 
-  private fun stringToListOfInts(line: String): MutableList<Int> {
-    return line.split(":")[1].split(" ").filter { it.isNotEmpty()  }.map { it.toInt()  }.toMutableList()
+  private fun stringToListOfLongs(line: String): List<Long> {
+    return line.split(":")[1].split(" ").filter { it.isNotEmpty()  }.map { it.toLong()  }.toMutableList()
   }
 
-  private fun findRange(time: Int, distance: Int): IntRange {
-    val timeList = mutableListOf<Int>()
+  private fun findRange(time: Long, distance: Long): LongRange {
+    //TODO: Break this loop when the race starts being lost
+    val timeList = mutableListOf<Long>()
     for (i in 0..time) {
       if (i * (time - i) > distance) {
         timeList.add(i)
       }
     }
-    return IntRange(timeList.min(), timeList.max())
+    Logger.d("LongRange: ${LongRange(timeList.min(), timeList.max())}")
+    return LongRange(timeList.min(), timeList.max())
+  }
+
+  private fun findRangeImproved(time: Long, distance: Long): LongRange {
+    var min: Long? = null
+    var max: Long? = null
+    //TODO: Do this with coroutines instead of while loops
+
+    while (min == null && max == null) {
+      while (min == null) {
+        for (i in 0..time ) {
+          if (i * (time - i) > distance && min == null) {
+            min = i
+          }
+        }
+      }
+
+        for (i in time downTo 0) {
+          if (i * (time - i) > distance && max == null) {
+            max = i
+          }
+
+      }
+    }
+    return LongRange(min ?: 0, max ?: 0)
+  }
+
+  private fun partAAnswer(timeList: List<Long>, distanceList: List<Long>): Long {
+    val timeDistanceMap = timeList.zip(distanceList).toMap()
+    val possibleWins = mutableListOf<Long>()
+    timeDistanceMap.forEach {
+      val range = findRangeImproved(it.key, it.value)
+      Logger.d("Part A range: $range")
+      possibleWins.add((range.max() - range.min()) + 1)
+    }
+    return possibleWins.reduce { acc, l -> acc* l }
+  }
+
+  private fun partBAnswer(time: Long, distance: Long): Long {
+    val range = findRangeImproved(time, distance)
+    val contentsNumber = (range.max() - range.min()) + 1
+
+    return contentsNumber
   }
 }
